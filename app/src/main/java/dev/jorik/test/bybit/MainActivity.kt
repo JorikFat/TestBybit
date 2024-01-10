@@ -3,9 +3,6 @@ package dev.jorik.test.bybit
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,16 +14,26 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TestBybitTheme {
+//                val viewModel :MainViewModel = viewModel()
+                Screen(/*viewModel =  viewModel*/)
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+//                Surface(
+//                    modifier = Modifier.fillMaxSize(),
+//                    color = MaterialTheme.colorScheme.background
+//                ) {
+//                    Greeting("Android")
+//                }
             }
         }
     }
+}
+
+@Composable
+private fun Screen(
+//    viewModel :MainViewModel
+){
+//    val state by viewModel.items.collectAsState()
+    Text(stubJson)
 }
 
 @Composable
