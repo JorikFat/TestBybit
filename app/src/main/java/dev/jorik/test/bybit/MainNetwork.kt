@@ -1,10 +1,12 @@
 package dev.jorik.test.bybit
 
-import kotlinx.coroutines.withContext
+import com.google.gson.Gson
 
-class MainNetwork {
+class MainNetwork(
+    //todo add client
+): MainRepository.Network {
 
-//    suspend fun loadEntities() = withContext() {
-//
-//    }
+    override suspend fun getItems(): Response {
+        return Gson().fromJson(stubJson, Response::class.java)
+    }
 }

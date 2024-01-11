@@ -41,23 +41,23 @@ private fun Screen(
     val items by viewModel.items.collectAsStateWithLifecycle()
     LazyColumn(modifier = Modifier.padding(vertical = 4.dp)) {
         items(items = items) {
-            ItemComp(item = it)
+            it.Ui()
         }
     }
 }
 
 @Composable
-private fun ItemComp(item :Item) {
+private fun Item.Ui() {
     Card(modifier = Modifier.padding(4.dp)) {
         Column(modifier = Modifier.padding(8.dp)) {
             Row {
-                Text(item.type.key)
+                Text(type.key)
                 Spacer(Modifier.width(8.dp))
-                Text(item.title)
+                Text(title)
             }
-            Text(item.description)
+            Text(description)
             Row {
-                item.tags.forEach {
+                tags.forEach {
                     Text(it)
                     Spacer(Modifier.width(8.dp))
                 }
@@ -69,16 +69,14 @@ private fun ItemComp(item :Item) {
 @Preview(showBackground = true)
 @Composable
 private fun ItemPreview(){
-    ItemComp(
-        Item(
-            "title",
-            "description",
-            Type("", "123"),
-            listOf("one", "two", "three"),
-            "",
-            0L,
-            0L,
-            0L
-        )
-    )
+    Item(
+        "title",
+        "description",
+        Type("", "123"),
+        listOf("one", "two", "three"),
+        "",
+        0L,
+        0L,
+        0L
+    ).Ui()
 }

@@ -7,14 +7,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(
+    private val domain :MainDomain
+) : ViewModel() {
     private val flow = MutableStateFlow<List<Item>>(listOf())
     val items : StateFlow<List<Item>> get() = flow
 
     init {
         viewModelScope.launch {
-            val response = Gson().fromJson(stubJson, Response::class.java)
-            flow.emit(response.result.list)
+            flow.emit(domain.getItems())
         }
     }
 }

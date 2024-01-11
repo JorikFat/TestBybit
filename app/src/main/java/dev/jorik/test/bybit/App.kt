@@ -13,7 +13,9 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             modules(module{
-                viewModel { MainViewModel() }
+                single<MainRepository.Network> { MainNetwork() }
+                single<MainDomain> { MainRepository(get()) }
+                viewModel { MainViewModel(get()) }
             })
         }
     }
