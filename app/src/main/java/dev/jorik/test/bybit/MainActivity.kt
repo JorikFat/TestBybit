@@ -21,13 +21,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.jorik.test.bybit.ui.theme.TestBybitTheme
+import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             TestBybitTheme {
-                Screen(viewModel =  viewModel())
+                Screen(viewModel = koinViewModel())
             }
         }
     }
