@@ -3,10 +3,23 @@ package dev.jorik.test.bybit
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.jorik.test.bybit.ui.theme.TestBybitTheme
 
 class MainActivity : ComponentActivity() {
@@ -14,15 +27,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TestBybitTheme {
-//                val viewModel :MainViewModel = viewModel()
-                Screen(/*viewModel =  viewModel*/)
-                // A surface container using the 'background' color from the theme
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
-//                ) {
-//                    Greeting("Android")
-//                }
+                Screen(viewModel =  viewModel())
             }
         }
     }
@@ -30,24 +35,49 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun Screen(
-//    viewModel :MainViewModel
+    viewModel :MainViewModel
 ){
-//    val state by viewModel.items.collectAsState()
-    Text(stubJson)
+    val items by viewModel.items.collectAsStateWithLifecycle()
+    LazyColumn(modifier = Modifier.padding(vertical = 4.dp)) {
+        items(items = items) {
+            ItemComp(item = it)
+        }
+    }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+private fun ItemComp(item :Item) {
+    Card(modifier = Modifier.padding(4.dp)) {
+        Column(modifier = Modifier.padding(8.dp)) {
+            Row {
+                Text(item.type.key)
+                Spacer(Modifier.width(8.dp))
+                Text(item.title)
+            }
+            Text(item.description)
+            Row {
+                item.tags.forEach {
+                    Text(it)
+                    Spacer(Modifier.width(8.dp))
+                }
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    TestBybitTheme {
-        Greeting("Android")
-    }
+private fun ItemPreview(){
+    ItemComp(
+        Item(
+            "title",
+            "description",
+            Type("", "123"),
+            listOf("one", "two", "three"),
+            "",
+            0L,
+            0L,
+            0L
+        )
+    )
 }
