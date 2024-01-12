@@ -5,6 +5,7 @@
 ## Используется следующий стэк:
  - User Interface - Compose
  - Presentation - ViewModel
+ - StateHolder - StateFlow
  - Network - Ktor
  - Serialization - Gson
  - Asynchronous - KotlinCoroutines
