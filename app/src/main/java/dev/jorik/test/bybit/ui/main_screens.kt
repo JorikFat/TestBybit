@@ -61,7 +61,7 @@ fun ItemPreview() {
 
 @Composable
 fun EmptyScreen(
-    state :State.Error,
+    message: String,
     onClick: (() -> Unit)? = null
 ) {
     Box(
@@ -79,13 +79,13 @@ fun EmptyScreen(
                         }
                     }
                 ) {
-                    Text(state.exception.message!!)
+                    Text(message)
                 }
             }
             ?: Snackbar(
                 modifier = Modifier.padding(8.dp)
             ) {
-                Text(state.exception.message!!)
+                Text(message)
             }
     }
 }
@@ -93,7 +93,7 @@ fun EmptyScreen(
 @Preview(showBackground = true)
 @Composable
 fun EmptyScreenPreview(){
-    EmptyScreen(State.Error(Exception("Stub Error")), onClick = {})
+    EmptyScreen("Stub Error", onClick = {})
 }
 
 @Composable

@@ -31,6 +31,9 @@ private fun Screen(
     when (val state = _state) {
         State.Loading -> WaitScreen()
         is State.Data -> ListScreen(state)
-        is State.Error -> EmptyScreen(state, if(state.retry) viewModel::retry else null)
+        is State.Error -> EmptyScreen(
+            state.exception.message!!,
+            if(state.retry) viewModel::retry else null
+        )
     }
 }
