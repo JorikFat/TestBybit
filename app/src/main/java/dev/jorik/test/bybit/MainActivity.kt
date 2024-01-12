@@ -3,17 +3,21 @@ package dev.jorik.test.bybit
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,9 +40,30 @@ class MainActivity : ComponentActivity() {
 private fun Screen(
     viewModel :MainViewModel
 ){
-    val items by viewModel.items.collectAsStateWithLifecycle()
-    LazyColumn(modifier = Modifier.padding(vertical = 4.dp)) {
-        items(items = items) {
+    val state by viewModel.items.collectAsStateWithLifecycle()
+    when(val items = state){
+        State.Loading -> WaitScreen()
+        is State.Data -> ListScreen(items)
+        is State.Error -> Box {}
+    }
+}
+
+@Composable
+private fun WaitScreen(){
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun ListScreen(state :State.Data){
+    LazyColumn(
+        modifier = Modifier.padding(vertical = 4.dp)
+    ) {
+        items(items = state.items) {
             it.Ui()
         }
     }

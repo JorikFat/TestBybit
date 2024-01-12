@@ -9,12 +9,12 @@ import kotlinx.coroutines.launch
 class MainViewModel(
     private val domain :MainDomain
 ) : ViewModel() {
-    private val flow = MutableStateFlow<List<Item>>(listOf())
-    val items : StateFlow<List<Item>> get() = flow
+    private val flow = MutableStateFlow<State>(State.Loading)
+    val items : StateFlow<State> get() = flow
 
     init {
         viewModelScope.launch {
-            flow.emit(domain.getItems())
+            flow.emit(State.Data(domain.getItems()))
         }
     }
 }
