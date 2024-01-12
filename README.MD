@@ -1,6 +1,8 @@
-## Тестовое Задание для Bybit
+# Тестовое Задание для Bybit
 
-# Используется следующий стэк:
+Сборка доступна в разделе [releases](https://github.com/JorikFat/TestBybit/releases/tag/1.0.0)
+
+## Используется следующий стэк:
  - User Interface - Compose
  - Presentation - ViewModel
  - Network - Ktor
