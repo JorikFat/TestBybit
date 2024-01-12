@@ -11,7 +11,7 @@
  - Dependency Injection - Koin
 
 ## Скриншоты
-![Загрузка](/materials/loading.png?raw=true)![Список](/materials/list.png?raw=true)![Ошика](/materials/exception.png?raw=true)
+![Загрузка](/materials/loading.png?raw=true "Загрузка")![Список](/materials/list.png?raw=true "Список")![Ошибка](/materials/exception.png?raw=true "Ошибка")
 
 ## Порядок работы
 При запуске приложения отображается индикатор загрузки;
